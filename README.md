@@ -127,5 +127,5 @@ After completing this exercise, the project now has:
 - Automatic image push to Docker Hub  
 - Self-hosted runner support  
 
-This completes **Exercise 4 — CI Pipeline Setup**.
+
 
