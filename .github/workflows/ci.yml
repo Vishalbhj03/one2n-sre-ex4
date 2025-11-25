@@ -12,7 +12,7 @@ on:
 
 jobs:
   ci-pipeline:
-    runs-on: [self-hosted, linux, x64]
+    runs-on: [self-hosted, Linux, X64]
 
     steps:
       - name: Checkout code
@@ -44,5 +44,6 @@ jobs:
 
       - name: Push Docker Image
         run: make docker-push
+
 
 
