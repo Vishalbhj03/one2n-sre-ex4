@@ -1,139 +1,131 @@
-CI Pipeline Setup — Student REST API
+# CI Pipeline Setup — Student REST API
 
-This exercise adds a Continuous Integration (CI) pipeline to the Student REST API project using:
+This project provides a Continuous Integration (CI) setup using:
 
-GitHub Actions
+- GitHub Actions  
+- Self-Hosted GitHub Runner  
+- Docker  
+- Docker Hub Registry  
+- GNU Make  
+- Spring Boot  
+- Maven  
 
-Self-hosted GitHub Runner
+---
 
-Docker Hub Registry
+##  Prerequisites
 
-Makefile automation
+Install:
 
-The pipeline automatically builds, tests, lints, and publishes the Docker image whenever code changes are made.
-
-Prerequisites
-
-Install on your system:
-
-Git
-
-Docker
-
-Docker Compose (v2+)
-
-GNU Make
-
-Java 17+
-
-Maven
-
-GitHub self-hosted runner (configured & running)
+- Git  
+- Docker  
+- Docker Compose (v2+)  
+- GNU Make  
+- Java 17+  
+- Maven  
+- GitHub self-hosted runner (Linux, X64)  
 
 Check installation:
 
+```bash
 docker --version
 docker compose version
 make --version
 mvn --version
 java -version
+```
 
-CI Workflow Overview
+---
 
-The CI workflow performs:
+##  CI Workflow
 
-Checkout code
+The CI pipeline performs:
 
-Build API using make build
+- Checkout code  
+- Build the API  
+- Run tests  
+- Lint code  
+- Login to Docker Hub  
+- Build Docker image  
+- Push Docker image  
 
-Run tests using make test
+The workflow file is located at:
 
-Lint code using make lint
-
-Login to Docker Hub
-
-Build Docker image
-
-Push Docker image to registry
-
-The workflow is defined at:
-
+```
 .github/workflows/ci.yml
+```
 
-Triggering the Pipeline
+---
 
-The CI pipeline runs when:
+##  Workflow Triggers
 
-Code changes are pushed to files such as:
+The CI pipeline runs when changes are made to:
 
-src/**
+- src/**
+- pom.xml
+- Dockerfile
+- Makefile
+- docker-compose.yml
 
-pom.xml
+It can also be triggered manually using **Run workflow**.
 
-Makefile
+---
 
-Dockerfile
+##  Required GitHub Secrets
 
-docker-compose.yml
-
-OR manually using:
-
-GitHub → Actions → CI - Build Test Lint Docker → Run workflow
-
-Required GitHub Secrets
-
-Add the following secrets under:
+Add these under:
 
 Settings → Secrets and variables → Actions
 
-DOCKER_USERNAME → Your Docker Hub username
+- DOCKER_USERNAME  
+- DOCKER_PASSWORD  
 
-DOCKER_PASSWORD → Docker Hub Access Token
+These are used for Docker login inside the CI workflow.
 
-These are used for logging into Docker Hub during the pipeline.
+---
 
-Self-Hosted Runner Setup
+##  Self-Hosted Runner
 
-A self-hosted runner is required to run the workflow.
+A Linux, X64 self-hosted runner must be configured and running.
 
-Runner labels:
+Start runner:
 
-self-hosted
-
-Linux
-
-X64
-
-Make sure your runner is running via:
-
+```bash
 ./run.sh
+```
 
-
-You should see it as  Idle in:
+Check runner status:
 
 GitHub → Repository → Settings → Actions → Runners
 
-Makefile Targets Used by CI
+You should see:
 
-The workflow uses these commands:
+- Labels: self-hosted, Linux, X64  
+- Status:  Idle  
 
-make build          # Build API (Maven)
-make test           # Run tests
-make lint           # Lint code
-make docker-login   # Login to Docker registry
-make docker-build   # Build Docker image
-make docker-push    # Push Docker image
+---
 
-Outcome
+##  Makefile Commands Used in CI
 
-By completing this exercise, your project now has:
+```bash
+make build
+make test
+make lint
+make docker-login
+make docker-build
+make docker-push
+```
 
-Automated build pipeline
+---
 
-Test execution on every change
+##  Outcome
 
-Docker image build automation
+After completing this exercise, the project now has:
 
-Automatic push to Docker Hub
+- Automated CI pipeline  
+- Build, test, and lint verification  
+- Docker image build automation  
+- Automatic image push to Docker Hub  
+- Self-hosted runner support  
 
-Self-hosted runner handling all CI tasks
+This completes **Exercise 4 — CI Pipeline Setup**.
+
